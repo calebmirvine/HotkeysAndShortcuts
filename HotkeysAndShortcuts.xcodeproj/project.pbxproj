@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		24516D0E2F26EFC5000C0D2F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 24516D0D2F26EFC5000C0D2F /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		24516CE92F26EE8A000C0D2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,22 +31,13 @@
 		24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotkeysAndShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24516D0D2F26EFC5000C0D2F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HotkeysAndShortcuts;
-			sourceTree = "<group>";
-		};
-		24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = HotkeysAndShortcutsTests;
-			sourceTree = "<group>";
-		};
-		24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = HotkeysAndShortcutsUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -76,9 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */,
-				24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */,
-				24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */,
 				24516CDC2F26EE89000C0D2F /* Products */,
+				24516D0D2F26EFC5000C0D2F /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,9 +124,6 @@
 			dependencies = (
 				24516CEA2F26EE8A000C0D2F /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */,
-			);
 			name = HotkeysAndShortcutsTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +143,6 @@
 			);
 			dependencies = (
 				24516CF42F26EE8A000C0D2F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */,
 			);
 			name = HotkeysAndShortcutsUITests;
 			packageProductDependencies = (
@@ -212,6 +200,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24516D0E2F26EFC5000C0D2F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,14 +383,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5GXY6J3HHB;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -426,14 +415,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5GXY6J3HHB;
-				ENABLE_APP_SANDBOX = YES;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (

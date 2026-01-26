@@ -6,8 +6,28 @@
 	<dict>
 		<key>HotkeysAndShortcuts.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>24516CDA2F26EE89000C0D2F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>24516CE72F26EE8A000C0D2F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>24516CF12F26EE8A000C0D2F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
