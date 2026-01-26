@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		24516CE92F26EE8A000C0D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24516CD32F26EE89000C0D2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24516CDA2F26EE89000C0D2F;
+			remoteInfo = HotkeysAndShortcuts;
+		};
+		24516CF32F26EE8A000C0D2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24516CD32F26EE89000C0D2F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24516CDA2F26EE89000C0D2F;
+			remoteInfo = HotkeysAndShortcuts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotkeysAndShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HotkeysAndShortcuts;
+			sourceTree = "<group>";
+		};
+		24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HotkeysAndShortcutsTests;
+			sourceTree = "<group>";
+		};
+		24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HotkeysAndShortcutsUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		24516CD82F26EE89000C0D2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CE52F26EE8A000C0D2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CEF2F26EE8A000C0D2F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24516CD22F26EE89000C0D2F = {
+			isa = PBXGroup;
+			children = (
+				24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */,
+				24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */,
+				24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */,
+				24516CDC2F26EE89000C0D2F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		24516CDC2F26EE89000C0D2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */,
+				24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */,
+				24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		24516CDA2F26EE89000C0D2F /* HotkeysAndShortcuts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24516CFC2F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcuts" */;
+			buildPhases = (
+				24516CD72F26EE89000C0D2F /* Sources */,
+				24516CD82F26EE89000C0D2F /* Frameworks */,
+				24516CD92F26EE89000C0D2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */,
+			);
+			name = HotkeysAndShortcuts;
+			packageProductDependencies = (
+			);
+			productName = HotkeysAndShortcuts;
+			productReference = 24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */;
+			productType = "com.apple.product-type.application";
+		};
+		24516CE72F26EE8A000C0D2F /* HotkeysAndShortcutsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24516CFF2F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcutsTests" */;
+			buildPhases = (
+				24516CE42F26EE8A000C0D2F /* Sources */,
+				24516CE52F26EE8A000C0D2F /* Frameworks */,
+				24516CE62F26EE8A000C0D2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24516CEA2F26EE8A000C0D2F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				24516CEB2F26EE8A000C0D2F /* HotkeysAndShortcutsTests */,
+			);
+			name = HotkeysAndShortcutsTests;
+			packageProductDependencies = (
+			);
+			productName = HotkeysAndShortcutsTests;
+			productReference = 24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		24516CF12F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24516D022F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcutsUITests" */;
+			buildPhases = (
+				24516CEE2F26EE8A000C0D2F /* Sources */,
+				24516CEF2F26EE8A000C0D2F /* Frameworks */,
+				24516CF02F26EE8A000C0D2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24516CF42F26EE8A000C0D2F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				24516CF52F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */,
+			);
+			name = HotkeysAndShortcutsUITests;
+			packageProductDependencies = (
+			);
+			productName = HotkeysAndShortcutsUITests;
+			productReference = 24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		24516CD32F26EE89000C0D2F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					24516CDA2F26EE89000C0D2F = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					24516CE72F26EE8A000C0D2F = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 24516CDA2F26EE89000C0D2F;
+					};
+					24516CF12F26EE8A000C0D2F = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 24516CDA2F26EE89000C0D2F;
+					};
+				};
+			};
+			buildConfigurationList = 24516CD62F26EE89000C0D2F /* Build configuration list for PBXProject "HotkeysAndShortcuts" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 24516CD22F26EE89000C0D2F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 24516CDC2F26EE89000C0D2F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				24516CDA2F26EE89000C0D2F /* HotkeysAndShortcuts */,
+				24516CE72F26EE8A000C0D2F /* HotkeysAndShortcutsTests */,
+				24516CF12F26EE8A000C0D2F /* HotkeysAndShortcutsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		24516CD92F26EE89000C0D2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CE62F26EE8A000C0D2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CF02F26EE8A000C0D2F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24516CD72F26EE89000C0D2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CE42F26EE8A000C0D2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24516CEE2F26EE8A000C0D2F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		24516CEA2F26EE8A000C0D2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24516CDA2F26EE89000C0D2F /* HotkeysAndShortcuts */;
+			targetProxy = 24516CE92F26EE8A000C0D2F /* PBXContainerItemProxy */;
+		};
+		24516CF42F26EE8A000C0D2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24516CDA2F26EE89000C0D2F /* HotkeysAndShortcuts */;
+			targetProxy = 24516CF32F26EE8A000C0D2F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		24516CFA2F26EE8A000C0D2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		24516CFB2F26EE8A000C0D2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		24516CFD2F26EE8A000C0D2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcuts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		24516CFE2F26EE8A000C0D2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcuts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		24516D002F26EE8A000C0D2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcutsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HotkeysAndShortcuts.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HotkeysAndShortcuts";
+			};
+			name = Debug;
+		};
+		24516D012F26EE8A000C0D2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcutsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HotkeysAndShortcuts.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HotkeysAndShortcuts";
+			};
+			name = Release;
+		};
+		24516D032F26EE8A000C0D2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcutsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = HotkeysAndShortcuts;
+			};
+			name = Debug;
+		};
+		24516D042F26EE8A000C0D2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GXY6J3HHB;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kale.HotkeysAndShortcutsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = HotkeysAndShortcuts;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		24516CD62F26EE89000C0D2F /* Build configuration list for PBXProject "HotkeysAndShortcuts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24516CFA2F26EE8A000C0D2F /* Debug */,
+				24516CFB2F26EE8A000C0D2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24516CFC2F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcuts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24516CFD2F26EE8A000C0D2F /* Debug */,
+				24516CFE2F26EE8A000C0D2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24516CFF2F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcutsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24516D002F26EE8A000C0D2F /* Debug */,
+				24516D012F26EE8A000C0D2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24516D022F26EE8A000C0D2F /* Build configuration list for PBXNativeTarget "HotkeysAndShortcutsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24516D032F26EE8A000C0D2F /* Debug */,
+				24516D042F26EE8A000C0D2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 24516CD32F26EE89000C0D2F /* Project object */;
+}
