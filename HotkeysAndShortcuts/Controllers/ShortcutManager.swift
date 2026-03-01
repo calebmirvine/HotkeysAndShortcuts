@@ -147,6 +147,12 @@ class ShortcutManager: ObservableObject {
             
         case .windowManagement(let position):
             executeWindowManagement(position)
+            
+        case .appleScript(let script):
+            await executeAppleScript(script)
+            
+        case .swiftExpression(let expression):
+            await executeSwiftExpression(expression)
         }
     }
     
@@ -281,6 +287,84 @@ class ShortcutManager: ObservableObject {
         }
     }
     
+    // MARK: - AppleScript Execution
+    
+    func executeAppleScript(_ script: String) async {
+        showNotification(title: "Running AppleScript", message: "Executing script...")
+        
+        let appleScript = NSAppleScript(source: script)
+        var errorInfo: NSDictionary?
+        let result = appleScript?.executeAndReturnError(&errorInfo)
+        
+        if let error = errorInfo {
+            let errorMessage = error["NSAppleScriptErrorMessage"] as? String ?? "Unknown error"
+            print("AppleScript error: \(errorMessage)")
+            
+            // Provide helpful guidance for common permission errors
+            if errorMessage.contains("Not authorized") {
+                showNotification(
+                    title: "Permission Required",
+                    message: "Go to System Settings > Privacy & Security > Automation and enable this app"
+                )
+                
+                // Show detailed permission dialog
+                await MainActor.run {
+                    showAppleScriptPermissionAlert()
+                }
+            } else {
+                showNotification(title: "AppleScript Failed", message: errorMessage)
+            }
+        } else {
+            let resultString = result?.stringValue ?? "Completed"
+            showNotification(title: "AppleScript Completed", message: resultString)
+        }
+    }
+    
+    private func showAppleScriptPermissionAlert() {
+        let alert = NSAlert()
+        alert.messageText = "AppleScript Permission Required"
+        alert.informativeText = """
+        Your AppleScript needs permission to control other applications.
+        
+        To grant permission:
+        1. Click "Open System Settings" below
+        2. Find "Hotkeys & Shortcuts" in the Automation list
+        3. Enable the checkbox for the app you want to control (e.g., System Events)
+        4. IMPORTANT: Fully quit and restart this app (Cmd+Q)
+        5. Try running your AppleScript again
+        
+        Note: Permissions don't take effect until the app is fully restarted.
+        """
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Open System Settings")
+        alert.addButton(withTitle: "Quit & Restart Later")
+        alert.addButton(withTitle: "Cancel")
+        
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
+                NSWorkspace.shared.open(url)
+            }
+        } else if response == .alertSecondButtonReturn {
+            NSApplication.shared.terminate(nil)
+        }
+    }
+    
+    // MARK: - Swift Expression Execution
+    
+    func executeSwiftExpression(_ expression: String) async {
+        showNotification(title: "Running Swift Expression", message: expression)
+        
+        let nsExpression = NSExpression(format: expression)
+        if let result = nsExpression.expressionValue(with: nil, context: nil) {
+            let resultString = "\(result)"
+            print("Swift expression result: \(resultString)")
+            showNotification(title: "Result: \(resultString)", message: expression)
+        } else {
+            showNotification(title: "Swift Expression Completed", message: "No result")
+        }
+    }
+    
     private func showNotification(title: String, message: String) {
         let notification = NSUserNotification()
         notification.title = title
@@ -289,10 +373,36 @@ class ShortcutManager: ObservableObject {
         NSUserNotificationCenter.default.deliver(notification)
     }
     
-    // MARK: - Accessibility Permissions
+    // MARK: - Permissions
     
     var hasAccessibilityPermissions: Bool {
         return AXIsProcessTrusted()
+    }
+    
+    func checkAppleScriptPermissions() {
+        let alert = NSAlert()
+        alert.messageText = "AppleScript Automation Permissions"
+        alert.informativeText = """
+        To use AppleScript hotkeys, you need to grant automation permissions:
+        
+        1. Go to System Settings > Privacy & Security > Automation
+        2. Find "Hotkeys & Shortcuts" in the list
+        3. Enable checkboxes for apps you want to control (e.g., System Events, Finder, Music)
+        4. IMPORTANT: Fully quit (Cmd+Q) and restart this app for permissions to take effect
+        
+        Note: Permission changes don't work until the app is completely restarted.
+        """
+        alert.alertStyle = .informational
+        alert.addButton(withTitle: "Open System Settings")
+        alert.addButton(withTitle: "OK")
+        
+        let response = alert.runModal()
+        if response == .alertFirstButtonReturn {
+            // Open System Settings to Automation page
+            if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
+                NSWorkspace.shared.open(url)
+            }
+        }
     }
     
     func requestAccessibilityPermissions(showSuccessAlert: Bool = false) {

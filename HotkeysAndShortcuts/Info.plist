@@ -25,7 +25,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleEventsUsageDescription</key>
-	<string>This app needs permission to run Apple Shortcuts via keyboard shortcuts.</string>
+	<string>This app needs permission to run Apple Shortcuts and AppleScript automation via keyboard shortcuts.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string></string>
 	<key>NSMainStoryboardFile</key>

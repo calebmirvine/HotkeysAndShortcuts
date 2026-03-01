@@ -55,6 +55,13 @@ struct HotkeyDetailView: View {
                         .foregroundStyle(hotkey.action.color)
                 }
                 
+                // Show code snippet for AppleScript and Swift
+                if case .appleScript(let script) = hotkey.action {
+                    codePreview(title: "AppleScript Code", code: script)
+                } else if case .swiftExpression(let expression) = hotkey.action {
+                    codePreview(title: "Swift Expression", code: expression)
+                }
+                
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Key Combination")
@@ -107,6 +114,46 @@ struct HotkeyDetailView: View {
         .padding()
     }
     
+    /// Code preview view for scripts
+    private func codePreview(title: String, code: String) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.headline)
+            
+            let previewCode = codePreviewText(code)
+            
+            ScrollView {
+                Text(previewCode)
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(8)
+                    .background(Color(NSColor.textBackgroundColor))
+                    .clipShape(RoundedRectangle(cornerRadius: 6))
+            }
+            .frame(maxHeight: 100)
+            
+            Button {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(code, forType: .string)
+            } label: {
+                Label("Copy Code", systemImage: "doc.on.doc")
+            }
+            .buttonStyle(.borderless)
+            .font(.caption)
+        }
+        .padding(.vertical, 4)
+    }
+    
+    /// Returns preview text (first 3 lines with ellipsis if longer)
+    private func codePreviewText(_ code: String) -> String {
+        let lines = code.components(separatedBy: .newlines)
+        if lines.count <= 3 {
+            return code
+        }
+        return lines.prefix(3).joined(separator: "\n") + "\n..."
+    }
+    
     /// Executes the hotkey action for testing
     private func testAction() async {
         switch hotkey.action {
@@ -131,6 +178,10 @@ struct HotkeyDetailView: View {
                 // Could show an alert here
                 print("Failed to perform window action")
             }
+        case .appleScript(let script):
+            await manager.executeAppleScript(script)
+        case .swiftExpression(let expression):
+            await manager.executeSwiftExpression(expression)
         }
     }
 }
