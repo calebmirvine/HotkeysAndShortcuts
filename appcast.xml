@@ -6,10 +6,10 @@
         <language>en</language>
         
         <item>
-            <title>Version 0.9.0</title>
+            <title>Version 0.1</title>
             <description>
                 <![CDATA[
-                    <h2>Initial Test Release</h2>
+                    <h2>Initial Release</h2>
                     <ul>
                         <li>Keyboard shortcut recording and management</li>
                         <li>Apple Shortcuts integration</li>
@@ -20,9 +20,9 @@
             </description>
             <pubDate>Fri, 28 Feb 2026 17:22:00 +0000</pubDate>
             <enclosure
-                url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.9.0/HotkeysAndShortcuts-0.9.0.zip"
-                sparkle:version="0.9.0"
-                sparkle:shortVersionString="0.9.0"
+                url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.1/HotkeysAndShortcuts-0.1.zip"
+                sparkle:version="0.1"
+                sparkle:shortVersionString="0.1"
                 sparkle:edSignature="tQz0TR9wRJyWx43qSg0g+olgkpNwfDHnV2diJdJg9tysSxSnohm1UUsO8RYC/R0qdW72MgymF6benGAAgrPsCw=="
                 length="2447844"
                 type="application/octet-stream"
