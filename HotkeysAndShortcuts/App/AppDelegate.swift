@@ -23,11 +23,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Initialize update manager
         _ = UpdateManager.shared
         
-        // Request accessibility permissions on launch
+        // Offer to enable launch at login on first run
         Task { @MainActor in
-            ShortcutManager.shared.requestAccessibilityPermissions()
-            
-            // Offer to enable launch at login on first run
             await offerLaunchAtLogin()
         }
     }
