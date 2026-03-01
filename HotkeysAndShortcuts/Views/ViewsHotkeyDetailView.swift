@@ -2,25 +2,26 @@
 //  HotkeyDetailView.swift
 //  HotkeysAndShortcuts
 //
-//  Created by Caleb on 2026-01-25.
+//  Detail view showing hotkey information and actions
 //
 
 import SwiftUI
 
+/// Displays detailed information about a hotkey binding
 struct HotkeyDetailView: View {
     let hotkey: HotkeyBinding
-    @StateObject private var shortcutManager = ShortcutManager.shared
+    @StateObject private var manager = ShortcutManager.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             // Header
             HStack {
-                Image(systemName: actionIcon)
+                Image(systemName: hotkey.action.icon)
                     .font(.system(size: 40))
-                    .foregroundStyle(actionColor)
+                    .foregroundStyle(hotkey.action.color)
                 
                 VStack(alignment: .leading) {
-                    Text(hotkey.shortcutName)
+                    Text(hotkey.action.displayName)
                         .font(.title)
                     Text(hotkey.keyComboDescription)
                         .font(.title3)
@@ -31,7 +32,7 @@ struct HotkeyDetailView: View {
                 
                 Toggle("Enabled", isOn: Binding(
                     get: { hotkey.isEnabled },
-                    set: { shortcutManager.toggleHotkey(hotkey, enabled: $0) }
+                    set: { manager.toggleHotkey(hotkey, enabled: $0) }
                 ))
             }
             .padding()
@@ -44,14 +45,14 @@ struct HotkeyDetailView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Label {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(actionTypeTitle)
+                        Text(hotkey.action.typeTitle)
                             .font(.headline)
-                        Text(actionTypeDescription)
+                        Text(hotkey.action.displayName)
                             .foregroundStyle(.secondary)
                     }
                 } icon: {
                     Image(systemName: hotkey.action.icon)
-                        .foregroundStyle(actionColor)
+                        .foregroundStyle(hotkey.action.color)
                 }
                 
                 Label {
@@ -84,22 +85,20 @@ struct HotkeyDetailView: View {
             
             // Actions
             HStack {
-                Button(testButtonTitle) {
-                    Task {
-                        await testAction()
-                    }
+                Button(hotkey.action.testButtonTitle) {
+                    Task { await testAction() }
                 }
                 .buttonStyle(.borderedProminent)
                 
                 Button("Edit") {
-                    shortcutManager.editHotkey(hotkey)
+                    manager.editHotkey(hotkey)
                 }
                 .buttonStyle(.bordered)
                 
                 Spacer()
                 
                 Button("Delete", role: .destructive) {
-                    shortcutManager.deleteHotkey(hotkey)
+                    manager.deleteHotkey(hotkey)
                 }
                 .buttonStyle(.bordered)
             }
@@ -108,62 +107,11 @@ struct HotkeyDetailView: View {
         .padding()
     }
     
-    private var actionIcon: String {
-        switch hotkey.action {
-        case .shortcut:
-            return "keyboard.badge.ellipsis"
-        case .windowManagement:
-            return "rectangle.fill.on.rectangle.fill"
-        }
-    }
-    
-    private var actionColor: Color {
-        switch hotkey.action {
-        case .shortcut:
-            return .orange
-        case .windowManagement:
-            return .blue
-        }
-    }
-    
-    private var actionTypeTitle: String {
-        switch hotkey.action {
-        case .shortcut:
-            return "Apple Shortcut"
-        case .windowManagement:
-            return "Window Position"
-        }
-    }
-    
-    private var actionTypeDescription: String {
-        switch hotkey.action {
-        case .shortcut(let name):
-            return name
-        case .windowManagement(let position):
-            return position.displayName
-        }
-    }
-    
-    private var testButtonTitle: String {
-        switch hotkey.action {
-        case .shortcut:
-            return "Test Shortcut"
-        case .windowManagement(let position):
-            switch position {
-            case .minimize:
-                return "Test Minimize"
-            case .hide:
-                return "Test Hide"
-            default:
-                return "Test Window Move"
-            }
-        }
-    }
-    
+    /// Executes the hotkey action for testing
     private func testAction() async {
         switch hotkey.action {
         case .shortcut(let name):
-            await shortcutManager.runShortcut(named: name)
+            await manager.runShortcut(named: name)
         case .windowManagement(let position):
             let success: Bool
             switch position {

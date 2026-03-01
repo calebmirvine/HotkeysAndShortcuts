@@ -16,8 +16,8 @@ struct ContentView: View {
     @State private var permissionCheckTimer: Timer?
     
     var body: some View {
-        NavigationSplitView(columnVisibility: .constant(.all)) {
-            // Sidebar with list of shortcuts
+        HStack(spacing: 0) {
+            // Sidebar - fixed at 280pt (33% of 850)
             VStack(spacing: 0) {
                 // Accessibility warning banner
                 if !hasAccessibilityPermissions {
@@ -61,40 +61,50 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Keyboard Shortcuts")
-            .navigationSplitViewColumnWidth(min: 250, ideal: 300, max: 400)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        isAddingHotkey = true
-                    } label: {
-                        Label("Add Shortcut", systemImage: "plus")
+            .frame(width: 280)
+            
+            // Divider
+            Divider()
+            
+            // Detail view
+            Group {
+                if let selectedID = shortcutManager.selectedHotkeyID,
+                   let hotkey = shortcutManager.hotkeys.first(where: { $0.id == selectedID }) {
+                    HotkeyDetailView(hotkey: hotkey)
+                } else {
+                    VStack(spacing: 20) {
+                        Image(systemName: "keyboard")
+                            .font(.system(size: 60))
+                            .foregroundStyle(.secondary)
+                        Text("Select a keyboard shortcut")
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                        Text("or create a new one")
+                            .foregroundStyle(.tertiary)
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-        } detail: {
-            if let selectedID = shortcutManager.selectedHotkeyID,
-               let hotkey = shortcutManager.hotkeys.first(where: { $0.id == selectedID }) {
-                HotkeyDetailView(hotkey: hotkey)
-            } else {
-                VStack(spacing: 20) {
-                    Image(systemName: "keyboard")
-                        .font(.system(size: 60))
-                        .foregroundStyle(.secondary)
-                    Text("Select a keyboard shortcut")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                    Text("or create a new one")
-                        .foregroundStyle(.tertiary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .toolbar(id: "main") {
+            ToolbarItem(id: "add", placement: .automatic) {
+                Button {
+                    isAddingHotkey = true
+                } label: {
+                    Image(systemName: "plus")
+                        .imageScale(.medium)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.circle)
+                .help("Add Shortcut")
             }
         }
         .sheet(isPresented: $isAddingHotkey) {
-            AddHotkeyView()
+            HotkeyFormView(hotkey: nil)
         }
         .sheet(item: $shortcutManager.editingHotkey) { hotkey in
-            EditHotkeyView(hotkey: hotkey)
+            HotkeyFormView(hotkey: hotkey)
         }
         .onAppear {
             checkAccessibilityPermissions()

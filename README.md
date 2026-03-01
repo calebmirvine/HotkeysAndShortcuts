@@ -32,6 +32,8 @@
 **Distribution:**
 - Packaged as DMG using [create-dmg](https://github.com/create-dmg/create-dmg)
 - Code-signed for macOS Gatekeeper compatibility
+- Automatic updates via [Sparkle framework](https://sparkle-project.org) with GitHub releases
+  - See [SPARKLE_SETUP.md](SPARKLE_SETUP.md) for update configuration guide
 
 ---
 

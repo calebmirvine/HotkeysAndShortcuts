@@ -169,7 +169,7 @@ class ShortcutManager: ObservableObject {
         eventMonitor?.registerHotkey(
             id: hotkey.id,
             keyCode: hotkey.keyCode,
-            modifiers: hotkey.carbonModifiers
+            modifiers: hotkey.modifiers
         )
     }
     
@@ -324,6 +324,12 @@ class ShortcutManager: ObservableObject {
     
     private func loadHotkeys() {
         hotkeys = storage.load()
+        print("📋 Loaded \(hotkeys.count) hotkeys from storage")
+        for hotkey in hotkeys where hotkey.isEnabled {
+            let modSymbols = ModifierConverter.symbolsFromCarbon(hotkey.modifiers).joined()
+            let keyName = KeyCodeMapper.keyName(for: hotkey.keyCode) ?? "\(hotkey.keyCode)"
+            print("   - \(modSymbols)\(keyName) → \(hotkey.action.displayName)")
+        }
     }
     
     private func saveHotkeys() {
@@ -395,7 +401,7 @@ class EventMonitor {
             let keyCode = UInt16(event.getIntegerValueField(.keyboardEventKeycode))
             let flags = event.flags
             
-            // Convert CGEventFlags to Carbon modifiers
+            // Convert CGEventFlags to Carbon modifiers (strip device-dependent flags)
             var modifiers: UInt32 = 0
             if flags.contains(.maskControl) {
                 modifiers |= UInt32(controlKey)
@@ -410,9 +416,21 @@ class EventMonitor {
                 modifiers |= UInt32(cmdKey)
             }
             
+            // Mask to only modifier keys (remove device-dependent flags)
+            let deviceIndependentMask: UInt32 = UInt32(controlKey) | UInt32(optionKey) | UInt32(shiftKey) | UInt32(cmdKey)
+            modifiers &= deviceIndependentMask
+            
             let signature = HotkeySignature(keyCode: keyCode, modifiers: modifiers)
             
+            // Debug: Log key events for troubleshooting
+            if modifiers != 0 {
+                let modSymbols = ModifierConverter.symbolsFromCarbon(modifiers).joined()
+                let keyName = KeyCodeMapper.keyName(for: keyCode) ?? "\(keyCode)"
+                print("🔑 Key event: \(modSymbols)\(keyName) (keyCode: \(keyCode), mods: \(modifiers))")
+            }
+            
             if let hotkeyID = hotkeyRegistry[signature] {
+                print("✅ Matched hotkey! Blocking event.")
                 // Prevent the event from propagating to other apps
                 onHotkeyPressed?(hotkeyID)
                 return nil // Block the event
@@ -424,8 +442,16 @@ class EventMonitor {
     
     func registerHotkey(id: UUID, keyCode: UInt16, modifiers: UInt32) {
         let signature = HotkeySignature(keyCode: keyCode, modifiers: modifiers)
+        let modSymbols = ModifierConverter.symbolsFromCarbon(modifiers).joined()
+        let keyName = KeyCodeMapper.keyName(for: keyCode) ?? "\(keyCode)"
+        print("📝 Registering hotkey: \(modSymbols)\(keyName) (keyCode: \(keyCode), mods: \(modifiers)) for ID: \(id)")
+        
+        // Check if this signature is already registered
+        if let existingID = hotkeyRegistry[signature], existingID != id {
+            print("⚠️ Warning: Hotkey signature \(signature) is already registered to \(existingID)")
+        }
+        
         hotkeyRegistry[signature] = id
-        print("Registered hotkey: \(signature) -> \(id)")
     }
     
     func unregisterHotkey(id: UUID) {

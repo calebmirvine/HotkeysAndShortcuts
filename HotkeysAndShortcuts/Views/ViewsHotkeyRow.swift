@@ -2,55 +2,42 @@
 //  HotkeyRow.swift
 //  HotkeysAndShortcuts
 //
-//  Created by Caleb on 2026-01-25.
+//  List row view for a hotkey binding
 //
 
 import SwiftUI
 
+/// Compact row displaying hotkey information in list
 struct HotkeyRow: View {
     let hotkey: HotkeyBinding
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Action type icon
+        HStack(spacing: 10) {
             Image(systemName: hotkey.action.icon)
-                .font(.title3)
-                .foregroundStyle(iconColor)
-                .frame(width: 30, height: 30)
+                .font(.body)
+                .foregroundStyle(hotkey.action.color)
+                .frame(width: 24, height: 24)
             
-            VStack(alignment: .leading, spacing: 4) {
-                Text(hotkey.shortcutName)
-                    .font(.headline)
-                    .lineLimit(2)
-                    .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(hotkey.action.displayName)
+                    .font(.subheadline)
+                    .lineLimit(1)
                 
                 Text(hotkey.keyComboDescription)
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
-            Spacer(minLength: 8)
+            Spacer(minLength: 4)
             
-            if hotkey.isEnabled {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(.green)
-                    .imageScale(.medium)
-            } else {
-                Image(systemName: "circle")
-                    .foregroundStyle(.secondary)
-                    .imageScale(.medium)
-            }
+            Image(systemName: hotkey.isEnabled ? "checkmark.circle.fill" : "circle")
+                .foregroundStyle(hotkey.isEnabled ? .green : .secondary)
+                .imageScale(.small)
+                .frame(width: 16)
         }
-        .padding(.vertical, 6)
-    }
-    
-    private var iconColor: Color {
-        switch hotkey.action {
-        case .shortcut:
-            return .orange
-        case .windowManagement:
-            return .blue
-        }
+        .padding(.vertical, 4)
+        .padding(.horizontal, 4)
     }
 }

@@ -121,8 +121,9 @@ class WindowManager {
             &canMinimize
         )
         
-        if canMinimizeResult == .success, let minimizeButton = canMinimize as! AXUIElement? {
+        if canMinimizeResult == .success, canMinimize != nil {
             // Press the minimize button
+            let minimizeButton = canMinimize as! AXUIElement
             let result = AXUIElementPerformAction(minimizeButton, kAXPressAction as CFString)
             return result == .success
         }
@@ -150,14 +151,58 @@ class WindowManager {
         return true
     }
     
+    /// Toggles full screen mode for the frontmost window using native controls
+    func toggleFullScreen() -> Bool {
+        guard let frontmostApp = NSWorkspace.shared.frontmostApplication,
+              let app = AXUIElementCreateApplication(frontmostApp.processIdentifier) as AXUIElement?,
+              let window = getFrontmostWindow(for: app) else {
+            print("Failed to get frontmost window")
+            return false
+        }
+        
+        // Try to use the native full screen button
+        var fullScreenButton: AnyObject?
+        let result = AXUIElementCopyAttributeValue(
+            window,
+            kAXFullScreenButtonAttribute as CFString,
+            &fullScreenButton
+        )
+        
+        if result == .success, fullScreenButton != nil {
+            let button = fullScreenButton as! AXUIElement
+            let pressResult = AXUIElementPerformAction(button, kAXPressAction as CFString)
+            return pressResult == .success
+        }
+        
+        // Fallback: try to set fullscreen attribute directly (may not be supported by all apps)
+        var isFullScreen: AnyObject?
+        let getFullScreenResult = AXUIElementCopyAttributeValue(
+            window,
+            "AXFullScreen" as CFString,
+            &isFullScreen
+        )
+        
+        if getFullScreenResult == .success, let currentValue = isFullScreen as? NSNumber {
+            let newValue = !currentValue.boolValue as CFBoolean
+            let setResult = AXUIElementSetAttributeValue(
+                window,
+                "AXFullScreen" as CFString,
+                newValue
+            )
+            return setResult == .success
+        }
+        
+        return false
+    }
+    
     // MARK: - Helper Methods
     
     private func getFrontmostWindow(for app: AXUIElement) -> AXUIElement? {
         var value: AnyObject?
         let result = AXUIElementCopyAttributeValue(app, kAXFocusedWindowAttribute as CFString, &value)
         
-        if result == .success, let window = value {
-            return (window as! AXUIElement)
+        if result == .success, value != nil {
+            return (value as! AXUIElement)
         }
         
         return nil
@@ -185,7 +230,16 @@ class WindowManager {
     
     private func getUsableScreenFrame(for screen: NSScreen) -> CGRect {
         // Use visibleFrame to account for menu bar and dock
-        return screen.visibleFrame
+        let visibleFrame = screen.visibleFrame
+        
+        // Debug: Print screen information
+        #if DEBUG
+        print("Screen frame: \(screen.frame)")
+        print("Visible frame: \(visibleFrame)")
+        print("Menu bar height: \(screen.frame.height - visibleFrame.maxY + visibleFrame.origin.y)")
+        #endif
+        
+        return visibleFrame
     }
     
     private func calculateFrame(for position: WindowPosition, in screenFrame: CGRect) -> CGRect {
@@ -193,6 +247,9 @@ class WindowManager {
         let y = screenFrame.origin.y
         let width = screenFrame.width
         let height = screenFrame.height
+        
+        // Note: macOS uses a coordinate system where (0,0) is at the bottom-left
+        // visibleFrame already accounts for menu bar and dock
         
         switch position {
         case .leftHalf:
@@ -202,9 +259,11 @@ class WindowManager {
             return CGRect(x: x + width / 2, y: y, width: width / 2, height: height)
             
         case .topHalf:
+            // Top half: y position stays at the bottom of the visible area + half the height
             return CGRect(x: x, y: y + height / 2, width: width, height: height / 2)
             
         case .bottomHalf:
+            // Bottom half: y position is at the bottom of the visible area
             return CGRect(x: x, y: y, width: width, height: height / 2)
             
         case .fullScreen, .maximize:
@@ -221,15 +280,19 @@ class WindowManager {
             )
             
         case .topLeft:
+            // Top-left quarter: x at left edge, y at bottom of visible + half height
             return CGRect(x: x, y: y + height / 2, width: width / 2, height: height / 2)
             
         case .topRight:
+            // Top-right quarter: x at halfway point, y at bottom of visible + half height
             return CGRect(x: x + width / 2, y: y + height / 2, width: width / 2, height: height / 2)
             
         case .bottomLeft:
+            // Bottom-left quarter: x at left edge, y at bottom of visible
             return CGRect(x: x, y: y, width: width / 2, height: height / 2)
             
         case .bottomRight:
+            // Bottom-right quarter: x at halfway point, y at bottom of visible
             return CGRect(x: x + width / 2, y: y, width: width / 2, height: height / 2)
             
         case .nextScreen, .previousScreen, .minimize, .hide:
@@ -260,17 +323,93 @@ class WindowManager {
     }
     
     private func setWindowFrame(_ window: AXUIElement, to frame: CGRect) -> Bool {
-        // Set position
-        var position = frame.origin
-        let positionValue = AXValueCreate(.cgPoint, &position)!
-        let positionResult = AXUIElementSetAttributeValue(window, kAXPositionAttribute as CFString, positionValue)
+        // Validate that the frame is reasonable
+        var validatedFrame = frame
         
-        // Set size
-        var size = frame.size
+        // Ensure the frame has positive dimensions
+        if validatedFrame.width <= 0 || validatedFrame.height <= 0 {
+            print("Invalid frame dimensions: \(frame)")
+            return false
+        }
+        
+        // Get window size constraints
+        let constraints = getWindowSizeConstraints(window)
+        
+        // Apply minimum size constraints
+        if let minSize = constraints.minSize {
+            validatedFrame.size.width = max(validatedFrame.size.width, minSize.width)
+            validatedFrame.size.height = max(validatedFrame.size.height, minSize.height)
+        } else {
+            // Fallback minimum size (100x100)
+            validatedFrame.size.width = max(validatedFrame.size.width, 100)
+            validatedFrame.size.height = max(validatedFrame.size.height, 100)
+        }
+        
+        // Apply maximum size constraints
+        if let maxSize = constraints.maxSize {
+            validatedFrame.size.width = min(validatedFrame.size.width, maxSize.width)
+            validatedFrame.size.height = min(validatedFrame.size.height, maxSize.height)
+        }
+        
+        #if DEBUG
+        print("Setting window frame to: \(validatedFrame)")
+        if let minSize = constraints.minSize {
+            print("Window min size: \(minSize)")
+        }
+        if let maxSize = constraints.maxSize {
+            print("Window max size: \(maxSize)")
+        }
+        #endif
+        
+        // Set size first (some windows need size set before position)
+        var size = validatedFrame.size
         let sizeValue = AXValueCreate(.cgSize, &size)!
         let sizeResult = AXUIElementSetAttributeValue(window, kAXSizeAttribute as CFString, sizeValue)
         
+        // Then set position
+        var position = validatedFrame.origin
+        let positionValue = AXValueCreate(.cgPoint, &position)!
+        let positionResult = AXUIElementSetAttributeValue(window, kAXPositionAttribute as CFString, positionValue)
+        
+        #if DEBUG
+        if positionResult != .success {
+            print("Failed to set position: \(positionResult.rawValue)")
+        }
+        if sizeResult != .success {
+            print("Failed to set size: \(sizeResult.rawValue)")
+        }
+        #endif
+        
         return positionResult == .success && sizeResult == .success
+    }
+    
+    /// Gets the minimum and maximum size constraints for a window
+    private func getWindowSizeConstraints(_ window: AXUIElement) -> (minSize: CGSize?, maxSize: CGSize?) {
+        var minSizeValue: AnyObject?
+        var maxSizeValue: AnyObject?
+        
+        // Note: These attributes may not be available on all windows
+        AXUIElementCopyAttributeValue(window, "AXMinSize" as CFString, &minSizeValue)
+        AXUIElementCopyAttributeValue(window, "AXMaxSize" as CFString, &maxSizeValue)
+        
+        var minSize: CGSize?
+        var maxSize: CGSize?
+        
+        if let minVal = minSizeValue {
+            var size = CGSize.zero
+            if AXValueGetValue(minVal as! AXValue, .cgSize, &size) {
+                minSize = size
+            }
+        }
+        
+        if let maxVal = maxSizeValue {
+            var size = CGSize.zero
+            if AXValueGetValue(maxVal as! AXValue, .cgSize, &size) {
+                maxSize = size
+            }
+        }
+        
+        return (minSize, maxSize)
     }
     
     // MARK: - Utility Methods
@@ -285,6 +424,28 @@ class WindowManager {
         return NSScreen.screens.enumerated().map { index, screen in
             let name = screen.localizedName
             return (name: name, frame: screen.frame, index: index)
+        }
+    }
+    
+    /// Debug: Lists all available attributes for the frontmost window
+    func debugWindowAttributes() {
+        guard let frontmostApp = NSWorkspace.shared.frontmostApplication,
+              let app = AXUIElementCreateApplication(frontmostApp.processIdentifier) as AXUIElement?,
+              let window = getFrontmostWindow(for: app) else {
+            print("Failed to get frontmost window")
+            return
+        }
+        
+        var attributeNames: CFArray?
+        let result = AXUIElementCopyAttributeNames(window, &attributeNames)
+        
+        if result == .success, let names = attributeNames as? [String] {
+            print("Available window attributes:")
+            for name in names.sorted() {
+                var value: AnyObject?
+                AXUIElementCopyAttributeValue(window, name as CFString, &value)
+                print("  - \(name): \(String(describing: value))")
+            }
         }
     }
 }
