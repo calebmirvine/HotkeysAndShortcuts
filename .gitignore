@@ -10,5 +10,9 @@
 xcuserdata/
 *.xcuserdatad
 
-#Release tutorial
+# Release scripts and documentation
 RELEASE.md
+RELEASE_INSTRUCTIONS.md
+release.sh
+automated-release.sh
+sign_update.sh
