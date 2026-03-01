@@ -1,56 +1,50 @@
 # Hotkeys & Shortcuts
 
-A native macOS menu bar app that intercepts keyboard events at the system level to execute Apple Shortcuts and manage windows. Built entirely in Swift and SwiftUI.
+Create custom keyboard shortcuts to automate your Mac. Run Apple Shortcuts, execute AppleScript, and manage windows with simple hotkeys.
 
-## Overview
+![Main Interface](assets/1.main-page.png)
 
-Custom keyboard shortcuts that override system-level events to trigger Apple Shortcuts or perform window management actions (snap, resize, move between displays).
+## What It Does
 
-## Technical Skills Demonstrated
+Trigger powerful actions with keyboard shortcuts:
+- **Run Shortcuts** - Launch any Apple Shortcut instantly
+- **AppleScript** - Automate apps and UI interactions
+- **Quick Math** - Evaluate expressions on the fly
+- **Window Snapping** - Move and resize windows across displays
 
-**Core Technologies**
-- Swift 5.9+ with async/await concurrency
-- SwiftUI with AppKit integration (NSStatusBar, NSWorkspace)
-- Core Graphics (CGEvent API)
-- Accessibility APIs (AXUIElement)
+![Menu Bar](assets/2.menubar.png)
 
-**System-Level Programming**
-- **CGEvent Tapping**: High-priority event interception using `.headInsertEventTap` to capture keyboard events before applications
-- **Process Management**: CLI integration with `/usr/bin/shortcuts` for executing Apple Shortcuts
-- **Multi-Display Geometry**: Calculating window positions across displays with different coordinate systems
-- **Launch Agent Management**: ServiceManagement API for launch-at-login functionality (macOS 13+)
+![Shortcut Action](assets/3.shortcut-action.png)
 
-**Architecture & Patterns**
-- MVVM pattern with @Observable macro
-- Singleton managers for centralized state
-- Codable persistence with UserDefaults
-- Event-driven design for keyboard interception
+![AppleScript Automation](assets/4.shortcut-applescript.png)
 
-**Distribution & Updates**
-- Code signing for macOS Gatekeeper
-- Automatic updates via Sparkle framework with EdDSA cryptographic signing
-- GitHub releases integration
+## Features
 
-## Key Challenges
+- **Custom Hotkeys** - Works system-wide, even overriding built-in shortcuts
+- **Shortcuts Integration** - Run any Apple Shortcut with a keypress
+- **AppleScript** - Write custom automation scripts
+- **Window Management** - Snap and move windows between displays
+- **Auto-Updates** - Automatically checks for new versions
+- **Launch at Login** - Optional startup integration
 
-**Event Tap Permissions**: Implementing Accessibility API authorization with graceful permission denial handling and automatic recovery when permissions are granted.
+## Getting Started
 
-**Event Priority Management**: Ensuring custom hotkeys execute before system shortcuts by using `.headInsertEventTap` placement in the event stream.
-
-**Multi-Display Coordination**: Calculating correct window positions across displays with different resolutions and coordinate systems.
-
-**SwiftUI/AppKit Bridge**: Integrating SwiftUI's declarative lifecycle with AppKit's imperative NSStatusBar API for menu bar functionality.
+1. Download from [Releases](https://github.com/calebmirvine/HotkeysAndShortcuts/releases)
+2. Move to Applications and launch
+3. Grant permissions when prompted (Accessibility & Automation)
+4. Create your first hotkey in the app
+5. Press your hotkey anywhere - it works system-wide!
 
 ## Requirements
 
-- macOS 13.0+ (Ventura)
-- Xcode 15+
-- Accessibility permissions for keyboard event interception
+- macOS 13.0 or newer (Ventura+)
+- Accessibility permissions (for keyboard interception)
+- Automation permissions (for AppleScript)
 
-## Setup
+## Built With
 
-1. Grant Accessibility permissions: System Settings > Privacy & Security > Accessibility
-2. Launch app and configure custom keyboard shortcuts
-3. Shortcuts will intercept at system level, overriding application shortcuts
+Swift, SwiftUI, and native macOS frameworks. Auto-updates via Sparkle.
+
+For developers: See [RELEASE_INSTRUCTIONS.md](RELEASE_INSTRUCTIONS.md) for build info.
 
 
