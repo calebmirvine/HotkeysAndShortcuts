@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2420A5F82F53BE5400E93262 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 2420A5F72F53BE5400E93262 /* Sparkle */; };
+		2420A60F2F53C5C700E93262 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 2420A60E2F53C5C700E93262 /* AppIcon.icon */; };
 		24516D0E2F26EFC5000C0D2F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 24516D0D2F26EFC5000C0D2F /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -28,9 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2420A60E2F53C5C700E93262 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotkeysAndShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = HotkeysAndShortcutsTests.xctest; path = /Users/kale/Desktop/HotkeysAndShortcuts/build/Debug/HotkeysAndShortcuts.app/Contents/PlugIns/HotkeysAndShortcutsTests.xctest; sourceTree = "<absolute>"; };
+		24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = HotkeysAndShortcutsUITests.xctest; path = "/Users/kale/Desktop/HotkeysAndShortcuts/build/Debug/HotkeysAndShortcutsUITests-Runner.app/Contents/PlugIns/HotkeysAndShortcutsUITests.xctest"; sourceTree = "<absolute>"; };
 		24516D0D2F26EFC5000C0D2F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2420A5F82F53BE5400E93262 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +77,7 @@
 				24516CDD2F26EE89000C0D2F /* HotkeysAndShortcuts */,
 				24516CDC2F26EE89000C0D2F /* Products */,
 				24516D0D2F26EFC5000C0D2F /* README.md */,
+				2420A60E2F53C5C700E93262 /* AppIcon.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,8 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */,
-				24516CE82F26EE8A000C0D2F /* HotkeysAndShortcutsTests.xctest */,
-				24516CF22F26EE8A000C0D2F /* HotkeysAndShortcutsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +109,7 @@
 			);
 			name = HotkeysAndShortcuts;
 			packageProductDependencies = (
+				2420A5F72F53BE5400E93262 /* Sparkle */,
 			);
 			productName = HotkeysAndShortcuts;
 			productReference = 24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */;
@@ -183,6 +187,9 @@
 			);
 			mainGroup = 24516CD22F26EE89000C0D2F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				2420A5F62F53BE5400E93262 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 24516CDC2F26EE89000C0D2F /* Products */;
 			projectDirPath = "";
@@ -200,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2420A60F2F53C5C700E93262 /* AppIcon.icon in Resources */,
 				24516D0E2F26EFC5000C0D2F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,6 +570,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2420A5F62F53BE5400E93262 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2420A5F72F53BE5400E93262 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2420A5F62F53BE5400E93262 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 24516CD32F26EE89000C0D2F /* Project object */;
 }

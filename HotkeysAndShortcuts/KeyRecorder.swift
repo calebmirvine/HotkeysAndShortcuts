@@ -2,7 +2,7 @@
 //  KeyRecorder.swift
 //  HotkeysAndShortcuts
 //
-//  Created by Caleb on 2026-01-25.
+//  Records keyboard shortcuts while temporarily pausing global hotkey monitoring
 //
 
 import Foundation
@@ -10,8 +10,7 @@ import SwiftUI
 import Carbon
 import Cocoa
 
-// MARK: - Key Recorder
-
+/// Records user keyboard input for hotkey assignment
 @Observable
 class KeyRecorder {
     var keyCode: UInt16 = 0
@@ -20,29 +19,14 @@ class KeyRecorder {
     
     private var eventMonitor: Any?
     
+    /// Human-readable key combination (e.g., "⌘⇧A")
     var keyComboDescription: String {
         guard hasValidKeyCombination else { return "" }
-        
-        var parts: [String] = []
-        
-        if modifiers & UInt32(controlKey) != 0 {
-            parts.append("⌃")
-        }
-        if modifiers & UInt32(optionKey) != 0 {
-            parts.append("⌥")
-        }
-        if modifiers & UInt32(shiftKey) != 0 {
-            parts.append("⇧")
-        }
-        if modifiers & UInt32(cmdKey) != 0 {
-            parts.append("⌘")
-        }
-        
+        var parts = ModifierConverter.symbolsFromCarbon(modifiers)
         if let keyName = KeyCodeMapper.keyName(for: keyCode) {
             parts.append(keyName)
         }
-        
-        return parts.joined(separator: "")
+        return parts.joined()
     }
     
     var hasValidKeyCombination: Bool {
@@ -66,36 +50,31 @@ class KeyRecorder {
                 return nil
             }
             
-            // Only capture key down events with modifiers
+            // Capture keyDown events with modifiers
             if event.type == .keyDown {
-                let keyCode = UInt16(event.keyCode)
+                let carbonMods = ModifierConverter.carbonFromNSEvent(event.modifierFlags)
                 
-                // Convert NSEvent modifiers to Carbon modifiers
-                var carbonModifiers: UInt32 = 0
+                // Debug logging
+                print("🎙️ Recording keyDown: keyCode=\(event.keyCode), carbonMods=\(carbonMods)")
+                print("   Raw modifierFlags: \(event.modifierFlags.rawValue)")
                 
-                if event.modifierFlags.contains(.control) {
-                    carbonModifiers |= UInt32(controlKey)
-                }
-                if event.modifierFlags.contains(.option) {
-                    carbonModifiers |= UInt32(optionKey)
-                }
-                if event.modifierFlags.contains(.shift) {
-                    carbonModifiers |= UInt32(shiftKey)
-                }
-                if event.modifierFlags.contains(.command) {
-                    carbonModifiers |= UInt32(cmdKey)
-                }
-                
-                // Require at least one modifier
-                if carbonModifiers != 0 {
-                    self.keyCode = keyCode
-                    self.modifiers = carbonModifiers
+                // Require at least one modifier key
+                if carbonMods != 0 {
+                    self.keyCode = UInt16(event.keyCode)
+                    self.modifiers = carbonMods
+                    let modSymbols = ModifierConverter.symbolsFromCarbon(carbonMods).joined()
+                    let keyName = KeyCodeMapper.keyName(for: UInt16(event.keyCode)) ?? "\(event.keyCode)"
+                    print("✅ Recorded: \(modSymbols)\(keyName) (keyCode: \(event.keyCode), mods: \(carbonMods))")
                     self.stopRecording()
-                    return nil // Consume the event
+                    return nil
                 }
+                print("❌ Rejected: carbonMods is 0")
+                return nil // Consume keyDown without modifiers
             }
             
-            return nil // Consume all events while recording
+            // Allow flagsChanged events to pass through
+            // This is important for proper modifier key handling
+            return event
         }
     }
     

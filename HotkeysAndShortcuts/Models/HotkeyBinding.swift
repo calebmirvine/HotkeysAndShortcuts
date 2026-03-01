@@ -2,33 +2,108 @@
 //  HotkeyBinding.swift
 //  HotkeysAndShortcuts
 //
-//  Created by Caleb on 2026-01-25.
+//  Data models for hotkey bindings and actions
 //
 
 import Foundation
+import SwiftUI
 import Carbon
+import AppKit
 
-// MARK: - Action Type
+// MARK: - Modifier Converter
 
+/// Converts modifier keys between NSEvent and Carbon formats
+enum ModifierConverter {
+    /// Converts Carbon modifiers to symbol strings (⌘, ⌃, ⌥, ⇧)
+    static func symbolsFromCarbon(_ modifiers: UInt32) -> [String] {
+        var symbols: [String] = []
+        if modifiers & UInt32(controlKey) != 0 { symbols.append("⌃") }
+        if modifiers & UInt32(optionKey) != 0 { symbols.append("⌥") }
+        if modifiers & UInt32(shiftKey) != 0 { symbols.append("⇧") }
+        if modifiers & UInt32(cmdKey) != 0 { symbols.append("⌘") }
+        return symbols
+    }
+    
+    /// Converts NSEvent modifier flags to Carbon format
+    static func carbonFromNSEvent(_ flags: NSEvent.ModifierFlags) -> UInt32 {
+        var carbon: UInt32 = 0
+        if flags.contains(.control) { carbon |= UInt32(controlKey) }
+        if flags.contains(.option) { carbon |= UInt32(optionKey) }
+        if flags.contains(.shift) { carbon |= UInt32(shiftKey) }
+        if flags.contains(.command) { carbon |= UInt32(cmdKey) }
+        return carbon
+    }
+}
+
+// MARK: - Hotkey Action
+
+/// Action to perform when hotkey is triggered
 enum HotkeyAction: Codable, Equatable {
     case shortcut(name: String)
     case windowManagement(position: WindowPosition)
     
     var displayName: String {
         switch self {
-        case .shortcut(let name):
-            return name
-        case .windowManagement(let position):
-            return position.displayName
+        case .shortcut(let name): return name
+        case .windowManagement(let position): return position.displayName
         }
     }
     
     var icon: String {
         switch self {
-        case .shortcut:
-            return "arrow.triangle.turn.up.right.diamond.fill"
-        case .windowManagement:
-            return "rectangle.fill.on.rectangle.fill"
+        case .shortcut: return "arrow.triangle.turn.up.right.diamond.fill"
+        case .windowManagement: return "rectangle.fill.on.rectangle.fill"
+        }
+    }
+    
+    /// UI color for action type
+    var color: Color {
+        switch self {
+        case .shortcut: return .orange
+        case .windowManagement: return .blue
+        }
+    }
+    
+    /// Type description for UI
+    var typeTitle: String {
+        switch self {
+        case .shortcut: return "Run Shortcut"
+        case .windowManagement: return "Window Management"
+        }
+    }
+    
+    /// Detailed action description
+    var description: String {
+        switch self {
+        case .shortcut: return "Execute an Apple Shortcut"
+        case .windowManagement(let position): return positionDescription(for: position)
+        }
+    }
+    
+    /// Test button label
+    var testButtonTitle: String {
+        switch self {
+        case .shortcut: return "Run Now"
+        case .windowManagement: return "Apply Now"
+        }
+    }
+    
+    private func positionDescription(for position: WindowPosition) -> String {
+        switch position {
+        case .leftHalf: return "Snap to left 50% of screen"
+        case .rightHalf: return "Snap to right 50% of screen"
+        case .topHalf: return "Snap to top 50% of screen"
+        case .bottomHalf: return "Snap to bottom 50% of screen"
+        case .topLeft: return "Snap to top-left corner (25%)"
+        case .topRight: return "Snap to top-right corner (25%)"
+        case .bottomLeft: return "Snap to bottom-left corner (25%)"
+        case .bottomRight: return "Snap to bottom-right corner (25%)"
+        case .fullScreen, .maximize: return "Fill entire screen"
+        case .center: return "Center at 70% size"
+        case .nextScreen: return "Move to next display"
+        case .previousScreen: return "Move to previous display"
+        case .minimize: return "Minimize window to Dock"
+        case .hide: return "Hide the application"
         }
     }
 }
@@ -144,51 +219,11 @@ struct HotkeyBinding: Identifiable, Codable {
         self.isEnabled = isEnabled
     }
     
+    /// Human-readable key combination (e.g., "⌘⇧A")
     var keyComboDescription: String {
-        var parts: [String] = []
-        
-        // Convert Carbon modifiers to readable symbols
-        if modifiers & UInt32(controlKey) != 0 {
-            parts.append("⌃")
-        }
-        if modifiers & UInt32(optionKey) != 0 {
-            parts.append("⌥")
-        }
-        if modifiers & UInt32(shiftKey) != 0 {
-            parts.append("⇧")
-        }
-        if modifiers & UInt32(cmdKey) != 0 {
-            parts.append("⌘")
-        }
-        
-        // Add the key name
-        if let keyName = KeyCodeMapper.keyName(for: keyCode) {
-            parts.append(keyName)
-        } else {
-            parts.append("Key \(keyCode)")
-        }
-        
-        return parts.joined(separator: "")
-    }
-    
-    // Convert to Carbon event hotkey format
-    var carbonModifiers: UInt32 {
-        var carbonMods: UInt32 = 0
-        
-        if modifiers & UInt32(controlKey) != 0 {
-            carbonMods |= UInt32(controlKey)
-        }
-        if modifiers & UInt32(optionKey) != 0 {
-            carbonMods |= UInt32(optionKey)
-        }
-        if modifiers & UInt32(shiftKey) != 0 {
-            carbonMods |= UInt32(shiftKey)
-        }
-        if modifiers & UInt32(cmdKey) != 0 {
-            carbonMods |= UInt32(cmdKey)
-        }
-        
-        return carbonMods
+        var parts = ModifierConverter.symbolsFromCarbon(modifiers)
+        parts.append(KeyCodeMapper.keyName(for: keyCode) ?? "Key \(keyCode)")
+        return parts.joined()
     }
 }
 
