@@ -5,6 +5,9 @@
 
 set -e  # Exit on error
 
+# Add Homebrew and Sparkle to PATH
+export PATH="/opt/homebrew/bin:/opt/homebrew/Caskroom/sparkle/2.9.0/bin:/usr/local/bin:$PATH"
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -31,8 +34,8 @@ APP_PATH="$EXPORT_PATH/${APP_NAME}.app"
 DMG_DIR="$BUILD_DIR/DMG"
 RELEASE_DIR="$BUILD_DIR/Release"
 
-# Get version from Info.plist
-VERSION=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "${APP_NAME}/Info.plist")
+# Get version from Xcode project
+VERSION=$(grep -m1 "MARKETING_VERSION = " "${APP_NAME}.xcodeproj/project.pbxproj" | sed 's/.*= \(.*\);/\1/')
 
 echo -e "${BLUE}╔════════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║  Hotkeys & Shortcuts - Release Builder    ║${NC}"

@@ -47,11 +47,13 @@ class MenuBarManager {
     private func showMenu() {
         let menu = NSMenu()
         
-        menu.addItem(NSMenuItem(
+        let showItem = NSMenuItem(
             title: "Show Shortcuts",
             action: #selector(showMainWindow),
             keyEquivalent: ""
-        ))
+        )
+        showItem.target = self
+        menu.addItem(showItem)
         menu.addItem(NSMenuItem.separator())
         
         // Launch at Login toggle
@@ -60,20 +62,40 @@ class MenuBarManager {
             action: #selector(toggleLaunchAtLogin),
             keyEquivalent: ""
         )
+        launchAtLoginItem.target = self
         launchAtLoginItem.state = LaunchAtLoginManager.shared.isEnabled ? .on : .off
         menu.addItem(launchAtLoginItem)
         
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(
-            title: "Settings...",
-            action: #selector(openSettings),
-            keyEquivalent: ","
-        ))
-        menu.addItem(NSMenuItem(
+        
+        // Auto-update settings
+        let autoUpdateItem = NSMenuItem(
+            title: "Check for Updates Automatically",
+            action: #selector(toggleAutoUpdate),
+            keyEquivalent: ""
+        )
+        autoUpdateItem.target = self
+        autoUpdateItem.state = UpdateManager.shared.automaticallyChecksForUpdates ? .on : .off
+        menu.addItem(autoUpdateItem)
+        
+        let checkUpdatesItem = NSMenuItem(
+            title: "Check for Updates Now...",
+            action: #selector(checkForUpdates),
+            keyEquivalent: ""
+        )
+        checkUpdatesItem.target = self
+        menu.addItem(checkUpdatesItem)
+        
+        menu.addItem(NSMenuItem.separator())
+        
+        let permissionsItem = NSMenuItem(
             title: "Check Accessibility Permissions...",
             action: #selector(checkPermissions),
             keyEquivalent: ""
-        ))
+        )
+        permissionsItem.target = self
+        menu.addItem(permissionsItem)
+        
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(
             title: "Quit",
@@ -94,9 +116,12 @@ class MenuBarManager {
         windowController?.showMainWindow()
     }
     
-    @objc private func openSettings() {
-        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        NSApp.activate(ignoringOtherApps: true)
+    @objc private func toggleAutoUpdate() {
+        UpdateManager.shared.automaticallyChecksForUpdates.toggle()
+    }
+    
+    @objc private func checkForUpdates() {
+        UpdateManager.shared.checkForUpdates()
     }
     
     @objc private func checkPermissions() {
