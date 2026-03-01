@@ -88,13 +88,21 @@ class MenuBarManager {
         
         menu.addItem(NSMenuItem.separator())
         
-        let permissionsItem = NSMenuItem(
+        let accessibilityPermissionsItem = NSMenuItem(
             title: "Check Accessibility Permissions...",
-            action: #selector(checkPermissions),
+            action: #selector(checkAccessibilityPermissions),
             keyEquivalent: ""
         )
-        permissionsItem.target = self
-        menu.addItem(permissionsItem)
+        accessibilityPermissionsItem.target = self
+        menu.addItem(accessibilityPermissionsItem)
+        
+        let appleScriptPermissionsItem = NSMenuItem(
+            title: "Check AppleScript Permissions...",
+            action: #selector(checkAppleScriptPermissions),
+            keyEquivalent: ""
+        )
+        appleScriptPermissionsItem.target = self
+        menu.addItem(appleScriptPermissionsItem)
         
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(
@@ -124,7 +132,11 @@ class MenuBarManager {
         UpdateManager.shared.checkForUpdates()
     }
     
-    @objc private func checkPermissions() {
+    @objc private func checkAccessibilityPermissions() {
         ShortcutManager.shared.requestAccessibilityPermissions(showSuccessAlert: true)
+    }
+    
+    @objc private func checkAppleScriptPermissions() {
+        ShortcutManager.shared.checkAppleScriptPermissions()
     }
 }

@@ -18,6 +18,8 @@ struct HotkeyFormView: View {
     @State private var availableShortcuts: [String] = []
     @State private var isLoadingShortcuts = true
     @State private var selectedPosition: WindowPosition = .leftHalf
+    @State private var appleScriptCode = ""
+    @State private var swiftExpressionCode = ""
     @State private var keyRecorder = KeyRecorder()
     
     private var isEditMode: Bool { hotkey != nil }
@@ -28,10 +30,15 @@ struct HotkeyFormView: View {
                 if !isEditMode {
                     actionTypeSection
                     
-                    if actionType == .shortcut {
+                    switch actionType {
+                    case .shortcut:
                         shortcutSelectionSection
-                    } else {
+                    case .windowManagement:
                         windowPositionSection
+                    case .appleScript:
+                        appleScriptSection
+                    case .swiftExpression:
+                        swiftExpressionSection
                     }
                 } else {
                     currentHotkeySection
@@ -183,11 +190,76 @@ struct HotkeyFormView: View {
         }
     }
     
+    /// AppleScript code editor (add mode, appleScript type)
+    private var appleScriptSection: some View {
+        Section("AppleScript Code") {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Enter your AppleScript code:")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+                TextEditor(text: $appleScriptCode)
+                    .font(.system(.body, design: .monospaced))
+                    .frame(minHeight: 150)
+                    .border(Color.secondary.opacity(0.3), width: 1)
+                
+                Text("Example: tell application \"Music\" to playpause")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+                Button("Test Run") {
+                    testAppleScript()
+                }
+                .buttonStyle(.bordered)
+                .disabled(appleScriptCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+            .padding(.vertical, 4)
+        }
+    }
+    
+    /// Swift expression editor (add mode, swift type)
+    private var swiftExpressionSection: some View {
+        Section("Swift Expression") {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Enter a Swift expression to evaluate:")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+                TextEditor(text: $swiftExpressionCode)
+                    .font(.system(.body, design: .monospaced))
+                    .frame(minHeight: 100)
+                    .border(Color.secondary.opacity(0.3), width: 1)
+                
+                Text("Example: 2 + 2 * 5")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                
+                Button("Test Run") {
+                    testSwiftExpression()
+                }
+                .buttonStyle(.bordered)
+                .disabled(swiftExpressionCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+            .padding(.vertical, 4)
+        }
+    }
+    
     // MARK: - Logic
     
     private var canSave: Bool {
         guard keyRecorder.hasValidKeyCombination else { return false }
-        return isEditMode || (actionType == .shortcut ? !selectedShortcut.isEmpty : true)
+        if isEditMode { return true }
+        
+        switch actionType {
+        case .shortcut:
+            return !selectedShortcut.isEmpty
+        case .windowManagement:
+            return true
+        case .appleScript:
+            return !appleScriptCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        case .swiftExpression:
+            return !swiftExpressionCode.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
     }
     
     private func save() {
@@ -196,9 +268,17 @@ struct HotkeyFormView: View {
         if let existing = hotkey {
             manager.updateHotkey(existing, keyCode: keyRecorder.keyCode, modifiers: keyRecorder.modifiers)
         } else {
-            let action: HotkeyAction = actionType == .shortcut
-                ? .shortcut(name: selectedShortcut)
-                : .windowManagement(position: selectedPosition)
+            let action: HotkeyAction
+            switch actionType {
+            case .shortcut:
+                action = .shortcut(name: selectedShortcut)
+            case .windowManagement:
+                action = .windowManagement(position: selectedPosition)
+            case .appleScript:
+                action = .appleScript(script: appleScriptCode)
+            case .swiftExpression:
+                action = .swiftExpression(expression: swiftExpressionCode)
+            }
             manager.addHotkey(action: action, keyCode: keyRecorder.keyCode, modifiers: keyRecorder.modifiers)
         }
         dismiss()
@@ -214,19 +294,35 @@ struct HotkeyFormView: View {
             }
         }
     }
+    
+    private func testAppleScript() {
+        Task {
+            await manager.executeAppleScript(appleScriptCode)
+        }
+    }
+    
+    private func testSwiftExpression() {
+        Task {
+            await manager.executeSwiftExpression(swiftExpressionCode)
+        }
+    }
 }
 
 // MARK: - Action Type
 
 /// Type of action to assign to hotkey
 enum ActionType: String, CaseIterable {
-    case shortcut = "Run Shortcut"
-    case windowManagement = "Move Window"
+    case shortcut = "Shortcut"
+    case windowManagement = "Window"
+    case appleScript = "AppleScript"
+    case swiftExpression = "Swift"
     
     var icon: String {
         switch self {
         case .shortcut: return "arrow.triangle.turn.up.right.diamond.fill"
         case .windowManagement: return "rectangle.fill.on.rectangle.fill"
+        case .appleScript: return "applescript"
+        case .swiftExpression: return "chevron.left.forwardslash.chevron.right"
         }
     }
     
@@ -234,6 +330,8 @@ enum ActionType: String, CaseIterable {
         switch self {
         case .shortcut: return .orange
         case .windowManagement: return .blue
+        case .appleScript: return .purple
+        case .swiftExpression: return .green
         }
     }
     
@@ -241,6 +339,8 @@ enum ActionType: String, CaseIterable {
         switch self {
         case .shortcut: return "Execute an Apple Shortcut"
         case .windowManagement: return "Move or resize the active window"
+        case .appleScript: return "Execute custom AppleScript code"
+        case .swiftExpression: return "Evaluate a Swift expression"
         }
     }
 }

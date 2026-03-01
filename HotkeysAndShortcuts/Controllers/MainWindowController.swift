@@ -34,8 +34,17 @@ class MainWindowController {
             createMainWindow()
         }
         
-        mainWindow?.makeKeyAndOrderFront(nil)
+        // Activate the app first to ensure it comes to the foreground
         NSApp.activate(ignoringOtherApps: true)
+        
+        // Set window level to ensure it appears on top
+        mainWindow?.level = .floating
+        mainWindow?.makeKeyAndOrderFront(nil)
+        
+        // Reset the window level after a brief delay to allow normal window behavior
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.mainWindow?.level = .normal
+        }
     }
     
     private func createMainWindow() {

@@ -41,11 +41,15 @@ enum ModifierConverter {
 enum HotkeyAction: Codable, Equatable {
     case shortcut(name: String)
     case windowManagement(position: WindowPosition)
+    case appleScript(script: String)
+    case swiftExpression(expression: String)
     
     var displayName: String {
         switch self {
         case .shortcut(let name): return name
         case .windowManagement(let position): return position.displayName
+        case .appleScript: return "AppleScript"
+        case .swiftExpression: return "Swift Expression"
         }
     }
     
@@ -53,6 +57,8 @@ enum HotkeyAction: Codable, Equatable {
         switch self {
         case .shortcut: return "arrow.triangle.turn.up.right.diamond.fill"
         case .windowManagement: return "rectangle.fill.on.rectangle.fill"
+        case .appleScript: return "applescript"
+        case .swiftExpression: return "chevron.left.forwardslash.chevron.right"
         }
     }
     
@@ -61,6 +67,8 @@ enum HotkeyAction: Codable, Equatable {
         switch self {
         case .shortcut: return .orange
         case .windowManagement: return .blue
+        case .appleScript: return .purple
+        case .swiftExpression: return .green
         }
     }
     
@@ -69,6 +77,8 @@ enum HotkeyAction: Codable, Equatable {
         switch self {
         case .shortcut: return "Run Shortcut"
         case .windowManagement: return "Window Management"
+        case .appleScript: return "AppleScript"
+        case .swiftExpression: return "Swift Expression"
         }
     }
     
@@ -77,6 +87,8 @@ enum HotkeyAction: Codable, Equatable {
         switch self {
         case .shortcut: return "Execute an Apple Shortcut"
         case .windowManagement(let position): return positionDescription(for: position)
+        case .appleScript: return "Execute custom AppleScript code"
+        case .swiftExpression: return "Evaluate a Swift expression"
         }
     }
     
@@ -85,6 +97,7 @@ enum HotkeyAction: Codable, Equatable {
         switch self {
         case .shortcut: return "Run Now"
         case .windowManagement: return "Apply Now"
+        case .appleScript, .swiftExpression: return "Run Now"
         }
     }
     
@@ -185,6 +198,10 @@ struct HotkeyBinding: Identifiable, Codable {
                 return name
             case .windowManagement(let position):
                 return position.displayName
+            case .appleScript:
+                return "AppleScript"
+            case .swiftExpression:
+                return "Swift Expression"
             }
         }
         set {
