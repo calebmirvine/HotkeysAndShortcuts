@@ -45,6 +45,4 @@ Trigger powerful actions with keyboard shortcuts:
 
 Swift, SwiftUI, and native macOS frameworks. Auto-updates via Sparkle.
 
-For developers: See [RELEASE_INSTRUCTIONS.md](RELEASE_INSTRUCTIONS.md) for build info.
-
 
