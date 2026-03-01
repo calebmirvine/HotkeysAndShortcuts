@@ -15,9 +15,25 @@ class UpdateManager: ObservableObject {
     
     private let updaterController: SPUStandardUpdaterController
     
-    @Published var canCheckForUpdates = false
-    @Published var automaticallyChecksForUpdates = true
-    @Published var automaticallyDownloadsUpdates = false
+    @Published private(set) var canCheckForUpdates = false
+    
+    var automaticallyChecksForUpdates: Bool {
+        get { updaterController.updater.automaticallyChecksForUpdates }
+        set {
+            Task { @MainActor in
+                updaterController.updater.automaticallyChecksForUpdates = newValue
+            }
+        }
+    }
+    
+    var automaticallyDownloadsUpdates: Bool {
+        get { updaterController.updater.automaticallyDownloadsUpdates }
+        set {
+            Task { @MainActor in
+                updaterController.updater.automaticallyDownloadsUpdates = newValue
+            }
+        }
+    }
     
     private init() {
         // Initialize Sparkle with standard user driver
@@ -28,10 +44,7 @@ class UpdateManager: ObservableObject {
         )
         
         // Set up update preferences
-        let updater = updaterController.updater
-        canCheckForUpdates = updater.canCheckForUpdates
-        automaticallyChecksForUpdates = updater.automaticallyChecksForUpdates
-        automaticallyDownloadsUpdates = updater.automaticallyDownloadsUpdates
+        canCheckForUpdates = updaterController.updater.canCheckForUpdates
     }
     
     /// Check for updates manually
@@ -39,15 +52,5 @@ class UpdateManager: ObservableObject {
         updaterController.checkForUpdates(nil)
     }
     
-    /// Update automatic check preference
-    func setAutomaticallyChecksForUpdates(_ value: Bool) {
-        updaterController.updater.automaticallyChecksForUpdates = value
-        automaticallyChecksForUpdates = value
-    }
-    
-    /// Update automatic download preference
-    func setAutomaticallyDownloadsUpdates(_ value: Bool) {
-        updaterController.updater.automaticallyDownloadsUpdates = value
-        automaticallyDownloadsUpdates = value
-    }
+
 }

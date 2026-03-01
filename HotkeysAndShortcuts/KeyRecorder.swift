@@ -79,7 +79,10 @@ class KeyRecorder {
     }
     
     func stopRecording() {
-        isRecording = false
+        Task { @MainActor in
+            isRecording = false
+        }
+        
         if let monitor = eventMonitor {
             NSEvent.removeMonitor(monitor)
             eventMonitor = nil

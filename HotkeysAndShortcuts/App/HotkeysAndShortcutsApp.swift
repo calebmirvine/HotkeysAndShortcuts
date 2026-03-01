@@ -13,11 +13,13 @@ struct HotkeysAndShortcutsApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
-        // Menu bar apps don't need a WindowGroup
+        // Menu bar apps don't need any scenes
         // All windows are managed by the AppDelegate
         Settings {
-            SettingsView()
+            EmptyView()
         }
+        .defaultSize(width: 0, height: 0)
+        .windowStyle(.hiddenTitleBar)
     }
 }
 
