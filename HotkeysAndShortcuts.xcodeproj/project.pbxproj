@@ -10,7 +10,6 @@
 		2420A5F82F53BE5400E93262 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 2420A5F72F53BE5400E93262 /* Sparkle */; };
 		2420A60F2F53C5C700E93262 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 2420A60E2F53C5C700E93262 /* AppIcon.icon */; };
 		24516D0E2F26EFC5000C0D2F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 24516D0D2F26EFC5000C0D2F /* README.md */; };
-		5D0E3C9CA5664435A28E79D3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7690A083D174F60B32BA324 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +35,6 @@
 		2420A6112F53CDC200E93262 /* HotkeysAndShortcutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HotkeysAndShortcutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24516CDB2F26EE89000C0D2F /* HotkeysAndShortcuts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HotkeysAndShortcuts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24516D0D2F26EFC5000C0D2F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E7690A083D174F60B32BA324 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -395,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -435,7 +433,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
