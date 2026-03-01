@@ -125,6 +125,6 @@ class MenuBarManager {
     }
     
     @objc private func checkPermissions() {
-        ShortcutManager.shared.requestAccessibilityPermissions()
+        ShortcutManager.shared.requestAccessibilityPermissions(showSuccessAlert: true)
     }
 }

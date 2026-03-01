@@ -295,18 +295,20 @@ class ShortcutManager: ObservableObject {
         return AXIsProcessTrusted()
     }
     
-    func requestAccessibilityPermissions() {
+    func requestAccessibilityPermissions(showSuccessAlert: Bool = false) {
         Task { @MainActor in
             // Check if we already have permissions
             if hasAccessibilityPermissions {
                 print("✅ Accessibility permissions already granted")
                 
-                let alert = NSAlert()
-                alert.messageText = "Accessibility Permissions Granted"
-                alert.informativeText = "Hotkeys & Shortcuts has the necessary permissions to capture keyboard shortcuts."
-                alert.alertStyle = .informational
-                alert.addButton(withTitle: "OK")
-                alert.runModal()
+                if showSuccessAlert {
+                    let alert = NSAlert()
+                    alert.messageText = "Accessibility Permissions Granted"
+                    alert.informativeText = "Hotkeys & Shortcuts has the necessary permissions to capture keyboard shortcuts."
+                    alert.alertStyle = .informational
+                    alert.addButton(withTitle: "OK")
+                    alert.runModal()
+                }
                 return
             }
             
