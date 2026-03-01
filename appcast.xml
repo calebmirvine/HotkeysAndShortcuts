@@ -5,6 +5,32 @@
         <description>Most recent updates to Hotkeys &amp; Shortcuts</description>
         <language>en</language>
 		<item>
+			<title>Version 0.1.3</title>
+			<description>
+				<![CDATA[
+					<h2>Version 0.1.3 - Complete Feature Release</h2>
+					<ul>
+						<li><strong>AppleScript Support</strong> - Execute custom AppleScript for UI automation and system control</li>
+						<li><strong>Swift Expressions</strong> - Evaluate Swift expressions for calculations and simple operations</li>
+						<li><strong>Permission Management</strong> - Comprehensive dialogs with step-by-step guidance</li>
+						<li><strong>Window Foreground Fix</strong> - App now always opens in front of other windows</li>
+						<li><strong>Error Handling</strong> - Improved messages with actionable solutions</li>
+						<li><strong>Release Automation</strong> - Enhanced build and deployment tools</li>
+					</ul>
+				]]>
+			</description>
+			<pubDate>Sat, 01 Mar 2026 22:00:00 +0000</pubDate>
+			<enclosure
+			url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.1.3/HotkeysAndShortcuts-0.1.3.zip"
+			sparkle:version="4"
+			sparkle:shortVersionString="0.1.3"
+			sparkle:edSignature="9b5CxH5cAzq7NpzQ9YaH79faMFIOgSfWyLejtaclMncpa9EwmRXtvkO2N9H/lQLN1KC4AeSJrP+IE7+0Sn2VAQ=="
+			length="2475477"
+			type="application/octet-stream"
+			/>
+			<sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+		</item>
+		<item>
 			<title>Version 0.1.2</title>
 			<description>
 				<![CDATA[
