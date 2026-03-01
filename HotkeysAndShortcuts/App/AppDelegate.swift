@@ -20,6 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         mainWindowController = MainWindowController()
         MenuBarManager.shared.windowController = mainWindowController
         
+        // Initialize update manager
+        _ = UpdateManager.shared
+        
         // Request accessibility permissions on launch
         Task { @MainActor in
             ShortcutManager.shared.requestAccessibilityPermissions()

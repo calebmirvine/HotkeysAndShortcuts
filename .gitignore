@@ -1,0 +1,11 @@
+# Environment variables with secrets
+.env
+
+# Sparkle private keys
+*.pem
+.sparkle_keys/
+
+# Xcode user-specific files
+*.xcuserdata
+xcuserdata/
+*.xcuserdatad

@@ -39,14 +39,22 @@ class MainWindowController {
     }
     
     private func createMainWindow() {
+        // Define fixed window size - smaller and more rectangular (portrait-like)
+        let windowWidth: CGFloat = 850
+        let windowHeight: CGFloat = 500
+        
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable],
+            contentRect: NSRect(x: 0, y: 0, width: windowWidth, height: windowHeight),
+            styleMask: [.titled, .closable, .miniaturizable],  // Removed .resizable
             backing: .buffered,
             defer: false
         )
         window.title = "Hotkeys & Shortcuts"
         window.contentView = NSHostingView(rootView: HotkeysAndShortcuts.ContentView())
+        
+        // Set fixed size constraints
+        window.minSize = NSSize(width: windowWidth, height: windowHeight)
+        window.maxSize = NSSize(width: windowWidth, height: windowHeight)
         
         // Prevent window from being released when closed
         window.isReleasedWhenClosed = false

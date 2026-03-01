@@ -16,6 +16,11 @@ struct SettingsView: View {
                     Label("General", systemImage: "gear")
                 }
             
+            UpdateSettingsView()
+                .tabItem {
+                    Label("Updates", systemImage: "arrow.down.circle")
+                }
+            
             AboutSettingsView()
                 .tabItem {
                     Label("About", systemImage: "info.circle")
