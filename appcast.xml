@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Hotkeys &amp; Shortcuts</title>
+        <description>Most recent updates to Hotkeys &amp; Shortcuts</description>
+        <language>en</language>
+		<item>
+			<title>Version 0.1.2</title>
+			<description>
+				<![CDATA[
+					<h2>Version 0.1.2</h2>
+					<ul>
+						<li>Fixed window foreground behavior - app now always opens in front</li>
+						<li>Added AppleScript execution support for custom automation</li>
+						<li>Added Swift Expression execution for simple calculations</li>
+						<li>Added permission management dialogs with helpful guidance</li>
+						<li>Improved error handling for automation permissions</li>
+					</ul>
+				]]>
+			</description>
+			<pubDate>Sat, 01 Mar 2026 19:00:00 +0000</pubDate>
+			<enclosure
+			url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.1.2/HotkeysAndShortcuts-0.1.2.zip"
+			sparkle:version="3"
+			sparkle:shortVersionString="0.1.2"
+			sparkle:edSignature="zFVeEadtfAnf1DYriiEjpGAGm+0ZdgVNSwGbiupj5SqcXcvjLQjHKDbqUXluazN3iPmkjc2i4Gm4lIscC9rRAg=="
+			length="2502104"
+			type="application/octet-stream"
+			/>
+			<sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+		</item>
+        <item>
+            <title>Version 0.1.1</title>
+            <description>
+                <![CDATA[
+                    <h2>Version 0.1.1</h2>
+                    <ul>
+                    <li>Removed automatic permission popup on launch</li>
+                    <li>Permissions now only requested when needed</li>
+                    <li>Improved user experience for first-time setup</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Fri, 28 Feb 2026 19:38:00 +0000</pubDate>
+            <enclosure
+            url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.1.1/HotkeysAndShortcuts-0.1.1.zip"
+            sparkle:version="2"
+            sparkle:shortVersionString="0.1.1"
+            sparkle:edSignature="n+RP8QA78qdRfcJoMHLNMNXoLvOTukGS3oLi8lqh4+Fb/+k+1rWAZD7EFdZt0MRxT7WbL1djTMa9k1jUOXoCDg=="
+            length="2497669"
+            type="application/octet-stream"
+            />
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+        </item>
+        <item>
+            <title>Version 0.1</title>
+            <description>
+                <![CDATA[
+                    <h2>Initial Release</h2>
+                    <ul>
+                    <li>Global keyboard shortcuts for window management</li>
+                    <li>Integration with Apple Shortcuts</li>
+                    <li>Menu bar application</li>
+                    <li>Auto-update support via Sparkle</li>
+                    </ul>
+                ]]>
+            </description>
+            <pubDate>Thu, 27 Feb 2026 18:02:00 +0000</pubDate>
+            <enclosure
+            url="https://github.com/calebmirvine/HotkeysAndShortcuts/releases/download/v0.1/HotkeysAndShortcuts-0.1.zip"
+            sparkle:version="1"
+            sparkle:shortVersionString="0.1"
+            sparkle:edSignature="WAmVBN+NmkHhNzpI75x0L3GJM4DfUJWPHkd+Zd9hHKq4K1HRE2R+cAQ4tQ8cHx4cLFLUUq4w4EfK8fY8k5RXDQ=="
+            length="2493983"
+            type="application/octet-stream"
+            />
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+        </item>
+    </channel>
+</rss>
