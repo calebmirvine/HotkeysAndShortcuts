@@ -28,7 +28,13 @@ class ShortcutManager: ObservableObject {
     
     private init() {
         loadHotkeys()
-        setupEventMonitor()
+        
+        // Request permissions if not granted, then setup monitor
+        if !hasAccessibilityPermissions {
+            requestAccessibilityPermissions()
+        } else {
+            setupEventMonitor()
+        }
     }
     
     // MARK: - Hotkey Management
@@ -127,7 +133,11 @@ class ShortcutManager: ObservableObject {
             registerHotkey(hotkey)
         }
         
-        print("✅ Event monitor setup complete. Registered \(hotkeys.filter(\.isEnabled).count) hotkeys")
+        if eventMonitor == nil {
+            print("❌ WARNING: Event monitor is nil after setup!")
+        } else {
+            print("✅ Event monitor setup complete. Registered \(hotkeys.filter(\.isEnabled).count) hotkeys")
+        }
     }
     
     private func executeHotkeyAction(_ hotkey: HotkeyBinding) async {
@@ -286,20 +296,29 @@ class ShortcutManager: ObservableObject {
     }
     
     func requestAccessibilityPermissions() {
-        // Check if we already have permissions
-        if hasAccessibilityPermissions {
-            print("✅ Accessibility permissions already granted")
-            return
+        Task { @MainActor in
+            // Check if we already have permissions
+            if hasAccessibilityPermissions {
+                print("✅ Accessibility permissions already granted")
+                
+                let alert = NSAlert()
+                alert.messageText = "Accessibility Permissions Granted"
+                alert.informativeText = "Hotkeys & Shortcuts has the necessary permissions to capture keyboard shortcuts."
+                alert.alertStyle = .informational
+                alert.addButton(withTitle: "OK")
+                alert.runModal()
+                return
+            }
+            
+            print("❌ Accessibility permissions not granted, requesting...")
+            
+            // Use macOS native prompt - kAXTrustedCheckOptionPrompt triggers system alert
+            let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
+            _ = AXIsProcessTrustedWithOptions(options as CFDictionary)
+            
+            // Start polling to detect when permissions are granted
+            startPermissionPolling()
         }
-        
-        print("❌ Accessibility permissions not granted, requesting...")
-        
-        // Use macOS native prompt - kAXTrustedCheckOptionPrompt triggers system alert
-        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
-        _ = AXIsProcessTrustedWithOptions(options as CFDictionary)
-        
-        // Start polling to detect when permissions are granted
-        startPermissionPolling()
     }
     
     private func startPermissionPolling() {
@@ -422,15 +441,7 @@ class EventMonitor {
             
             let signature = HotkeySignature(keyCode: keyCode, modifiers: modifiers)
             
-            // Debug: Log key events for troubleshooting
-            if modifiers != 0 {
-                let modSymbols = ModifierConverter.symbolsFromCarbon(modifiers).joined()
-                let keyName = KeyCodeMapper.keyName(for: keyCode) ?? "\(keyCode)"
-                print("🔑 Key event: \(modSymbols)\(keyName) (keyCode: \(keyCode), mods: \(modifiers))")
-            }
-            
             if let hotkeyID = hotkeyRegistry[signature] {
-                print("✅ Matched hotkey! Blocking event.")
                 // Prevent the event from propagating to other apps
                 onHotkeyPressed?(hotkeyID)
                 return nil // Block the event
